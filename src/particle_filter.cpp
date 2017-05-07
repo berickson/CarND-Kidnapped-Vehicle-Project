@@ -36,8 +36,10 @@ void ParticleFilter::init(double x, double y, double theta, double std[]) {
 
 void update_bicycle(double & x, double & y, double & theta, double velocity, double yaw_rate, double dt) {
     // see https://classroom.udacity.com/nanodegrees/nd013/parts/40f38239-66b6-46ec-ae68-03afd8a601c8/modules/2c318113-724b-4f9f-860c-cb334e6e4ad7/lessons/5c50790c-5370-4c80-aff6-334659d5c0d9/concepts/ca98c146-ee0d-4e53-9900-81cec2b771f7
-    x = x + (velocity / yaw_rate) * (sin(theta + yaw_rate * dt) - sin(theta));
-    y = y + (velocity / yaw_rate) * (cos(theta) - cos(theta + yaw_rate * dt));
+    //x = x + (velocity / yaw_rate) * (sin(theta + yaw_rate * dt) - sin(theta));
+    //y = y + (velocity / yaw_rate) * (cos(theta) - cos(theta + yaw_rate * dt));
+    x += velocity * dt * cos(theta);
+    y += velocity * dt * sin(theta);
     theta = theta + yaw_rate * dt;
 }
 
@@ -80,7 +82,7 @@ void ParticleFilter::dataAssociation(std::vector<LandmarkObs>& predicted, std::v
             auto landmark = map.landmark_list.at(i);
             double dx = observation.x - landmark.x_f;
             double dy = observation.y - landmark.y_f;
-            double d2 = dx*dx + dy+dy;
+            double d2 = dx*dx + dy*dy;
             if(d2 < best_d2) {
                 best_i = i;
                 best_d2 = d2;
