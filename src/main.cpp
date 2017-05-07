@@ -127,6 +127,8 @@ int main() {
 			}
 		}
 		double *avg_error = getError(gt[i].x, gt[i].y, gt[i].theta, best_particle.x, best_particle.y, best_particle.theta);
+        cout << "best: { x: " << best_particle.x << ", y: " << best_particle.y << " , theta: " << best_particle.theta <<  " }"<< endl;
+        cout << "gt:   { x: " << gt[i].x << ", y: " << gt[i].y << " , theta: " << gt[i].theta <<  " }"<< endl;
 
 		for (int j = 0; j < 3; ++j) {
 			total_error[j] += avg_error[j];
