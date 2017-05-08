@@ -69,11 +69,19 @@ void ParticleFilter::prediction(double delta_t, double std_pos[], double velocit
 
 }
 
-void ParticleFilter::dataAssociation(std::vector<LandmarkObs>& predicted, std::vector<LandmarkObs>& observations, Map& map) {
-	// TODO: Find the predicted measurement that is closest to each observed measurement and assign the 
-	//   observed measurement to this particular landmark.
-	// NOTE: this method will NOT be called by the grading code. But you will probably find it useful to 
-	//   implement this method and use it as a helper during the updateWeights phase.
+
+void ParticleFilter::dataAssociation(std::vector<LandmarkObs>predicted, std::vector<LandmarkObs>& observations) {
+    // TODO: Find the predicted measurement that is closest to each observed measurement and assign the
+    //   observed measurement to this particular landmark.
+    // NOTE: this method will NOT be called by the grading code. But you will probably find it useful to
+    //   implement this method and use it as a helper during the updateWeights phase.
+
+}
+
+void dataAssociation(std::vector<LandmarkObs>& predicted, std::vector<LandmarkObs>& observations, Map& map) {
+    // note to reviewer:
+    // I moved this to a static function because I wanted to change to parameters to include
+    // the map and an updatable predicted vector.
     for(LandmarkObs & observation : observations) {
         // find the lowest distance squared
         double best_d2 = DBL_MAX;
@@ -130,7 +138,7 @@ void ParticleFilter::updateWeights(double sensor_range, double std_landmark[],
 
         // find associated points
         std::vector<LandmarkObs> associations;
-        dataAssociation(associations, world_observations, map_landmarks);
+        ::dataAssociation(associations, world_observations, map_landmarks);
 
         // update weight with probability
         double p = 1.0;
