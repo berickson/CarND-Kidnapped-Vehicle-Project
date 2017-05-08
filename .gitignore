@@ -1,6 +1,9 @@
 reviewer
 submission_instructions.*
 build
+debug
+release
+*.user
 solution
 solution_data
 src/particle_filter_sol.cpp
